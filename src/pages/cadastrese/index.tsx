@@ -54,11 +54,11 @@ function Cadastrese() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">E-mail</label>
-                    <input type="email" name="email" className="form-control" id="email" placeholder="Digite seu e-mail" onChange={handlerChange}/>
+                    <input type="email" name="email" className="form-control" id="email" placeholder="Digite seu e-mail" onChange={handlerChange} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="senha" className="form-label">Senha</label>
-                    <input type="password" name="senha" className="form-control" id="senha" placeholder="Crie uma senha" onChange={handlerChange}/>
+                    <input type="password" name="senha" className="form-control" id="senha" placeholder="Crie uma senha" onChange={handlerChange} />
                 </div>
                 <button type="submit" className="btn btn-success w-100">Cadastrar</button>
                 <div className="text-center mt-3">

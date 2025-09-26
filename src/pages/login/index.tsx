@@ -45,30 +45,6 @@ function Login() {
             if (token != null) {
                 navigator("/home")
             }
-
-
-
-            // abaixo exemplo de fetch
-            //             // Fetch para conectar o front no back ele recebe a API_URL + nossa "url" do login que tem no swagger
-            //         const response = await fetch(API_URL + "auth/login",{
-            //             method : 'POST',
-            //             headers : {
-            //                 'Content-Type' : 'application/json',
-            //             },
-            //             body : JSON.stringify(formData)
-            //         });
-
-            //         if(!response.ok){
-            //             throw new Error("Erro ao logar usuário!")
-            //         }
-
-            //         const data : LoginResponse = await response.json();
-
-            //         console.log(data.token);
-
-            //     } catch(error)
-            //     {
-
         } catch (error) {
         }
     }
