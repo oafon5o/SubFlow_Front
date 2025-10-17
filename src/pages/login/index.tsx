@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { loginSucesso } from "../../redux/authSlice";
 
 // criacao de objetos, se o projeto for pequeno cria uma pasta de types, e se for grande, cria pasta de types e dentro da pasta de types cria subpastas para cada tipo
 // estilo backend em questão de organização
@@ -17,6 +19,8 @@ interface LoginResponseDto {
 function Login() {
 
     const navigator = useNavigate();
+
+    const dispatch = useDispatch();
 
     const API_URL = "http://localhost:8080/"
 
@@ -43,6 +47,10 @@ function Login() {
             const token = response.data.token;
             console.log(token);
             if (token != null) {
+                dispatch(loginSucesso({
+                    usuario:{email:formData.email, nome: ""}, token : token
+                }));
+
                 navigator("/home")
             }
         } catch (error) {
