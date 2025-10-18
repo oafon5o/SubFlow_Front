@@ -6,6 +6,7 @@ import StatusAssinatura from "./pages/statusAssinatura";
 import LayoutLoginCadastrese from "./componentes/layoutLoginCadastrese";
 import Login from "./pages/login";
 import Cadastrese from "./pages/cadastrese";
+import UsuarioListar from "./pages/listaUsuarios";
 
 function AppRoutes(){
     return(
@@ -18,6 +19,7 @@ function AppRoutes(){
                 <Route path="/home" element={<Home />} />
                 <Route path="/registroServico" element={<RegistroServico />} />
                 <Route path="/statusAssinatura" element={<StatusAssinatura />} />
+                <Route path="/usuarios" element={<UsuarioListar />} />
             </Route>
         </Routes>
     );
