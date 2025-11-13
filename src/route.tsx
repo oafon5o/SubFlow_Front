@@ -7,6 +7,7 @@ import LayoutLoginCadastrese from "./componentes/layoutLoginCadastrese";
 import Login from "./pages/login";
 import Cadastrese from "./pages/cadastrese";
 import UsuarioListar from "./pages/listaUsuarios";
+import EsqueciSenha from "./pages/esqueciSenha";
 
 function AppRoutes(){
     return(
@@ -14,6 +15,7 @@ function AppRoutes(){
             <Route path="/" element={<LayoutLoginCadastrese />}>
                 <Route index element={<Login />} />
                 <Route path="/cadastro" element={<Cadastrese />} />
+                <Route path="/esqueciSenha" element={<EsqueciSenha />} />
             </Route>
             <Route element={<LayoutServicoStatus />}>
                 <Route path="/home" element={<Home />} />

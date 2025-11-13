@@ -57,6 +57,9 @@ function Login() {
                 <label htmlFor="senha" className="form-label">Senha</label>
                 <input type="password" name="senha" className="form-control" id="senha" value={formData.senha} onChange={handlerChange} placeholder="Digite sua senha" />
             </div>
+            <div className="text-left mb-3">
+                <Link to="/esqueciSenha">Esqueci minha senha</Link>
+            </div>
             <button type="submit" className="btn btn-primary w-100">Entrar</button>
             <div className="text-center mt-3">
                 <span>Não tem uma conta? </span>

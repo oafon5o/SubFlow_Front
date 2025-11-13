@@ -27,6 +27,11 @@ function Sidebar() {
                         Status de sua assinatura
                     </Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/usuarios" className="nav-link text-white">
+                        Painel de usuários
+                    </Link>
+                </li>
             </ul>
         </div>
     );
