@@ -18,6 +18,8 @@ function Login() {
         senha: ''
     });
 
+    const [loginError, setLoginError] = useState<string | null>(null);
+
     const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormData(prevState => ({
@@ -43,12 +45,19 @@ function Login() {
                 navigator("/home")
             }
         } catch (error) {
+            console.error("Erro de login:", error);
+            setLoginError("E-mail ou senha incorretos. Tente novamente.");
         }
     }
 
     return (
         <form onSubmit={handlerSubmit}>
             <h2 className="mb-4">Login</h2>
+            {loginError && (
+                <div className="alert alert-danger mb-3" role="alert">
+                    {loginError}
+                </div>
+            )}
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">E-mail</label>
                 <input type="text" name="email" className="form-control" id="email" value={formData.email} onChange={handlerChange} placeholder="Digite seu e-mail" />

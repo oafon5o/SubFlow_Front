@@ -56,17 +56,16 @@ function EsqueciSenha(){
         }
 
         try {
-            // 🔒 Você precisará de um novo endpoint no backend para esta etapa (Ex: POST /usuarios/redefinirsenha)
-            await axios.post(`${API_URL}/usuarios/redefinirsenha`, {
-                email: emailData.email, // Envia o email junto com o código e senhas
-                tokenSenha: resetData.codigo, // 🔒 O nome do campo deve ser o que o backend espera (ex: tokenSenha)
-                novaSenha: resetData.novaSenha
+            await axios.post(`${API_URL}/usuarios/registrarnovasenha`, {
+                email: emailData.email,
+                token: resetData.codigo,
+                senha: resetData.novaSenha
             });
 
             setMessage({ text: 'Senha redefinida com sucesso! Você será redirecionado.', type: 'success' });
             
             setTimeout(() => {
-                navigate('/login');
+                navigate('/');
             }, 2000); 
 
         } catch (error) {
@@ -100,7 +99,7 @@ function EsqueciSenha(){
             
             <button type="submit" className="btn btn-primary w-100 mb-3">Enviar Código</button>
             <div className="text-center mt-3">
-                <Link to="/login">Voltar para Login</Link>
+                <Link to="/">Voltar para Login</Link>
             </div>
         </form>
     );
@@ -156,9 +155,9 @@ function EsqueciSenha(){
                 />
             </div>
             
-            <button type="submit" className="btn btn-success w-100">Salvar Nova Senha</button> {/* Botão Salvar em verde */}
+            <button type="submit" className="btn btn-success w-100">Salvar Nova Senha</button>
             <div className="text-center mt-3">
-                <Link to="/login">Voltar para Login</Link>
+                <Link to="/">Voltar para Login</Link>
             </div>
         </form>
     );
