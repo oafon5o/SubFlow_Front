@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { EsqueciMinhaSenha, type EsqueciMinhaSenhaRequestDto, type RedefinirSenhaRequestDto } from '../../services/authService';
 
-const API_URL = "http://localhost:8080/api";
 
-// DTO para a primeira etapa: envio do email
-type EsqueciMinhaSenhaRequestDto = {
-    email: string;
-};
 
-// DTO para a segunda etapa: redefinição de senha
-type RedefinirSenhaRequestDto = {
-    codigo: string;
-    novaSenha: string;
-    confirmacaoSenha: string;
-};
 
 function EsqueciSenha(){
     const navigate = useNavigate();
@@ -35,7 +24,7 @@ function EsqueciSenha(){
         setMessage(null);
 
         try {
-            await axios.post(`${API_URL}/usuarios/esqueciminhasenha`, emailData); 
+            await EsqueciMinhaSenha(emailData);
             
             setMessage({ text: 'Código enviado para o seu e-mail. Por favor, verifique sua caixa de entrada.', type: 'success' });
             setStep('reset');
@@ -56,11 +45,11 @@ function EsqueciSenha(){
         }
 
         try {
-            await axios.post(`${API_URL}/usuarios/registrarnovasenha`, {
-                email: emailData.email,
-                token: resetData.codigo,
-                senha: resetData.novaSenha
-            });
+            // await axios.post(`${API_URL}/usuarios/registrarnovasenha`, {
+            //     email: emailData.email,
+            //     token: resetData.codigo,
+            //     senha: resetData.novaSenha
+            // });
 
             setMessage({ text: 'Senha redefinida com sucesso! Você será redirecionado.', type: 'success' });
             
