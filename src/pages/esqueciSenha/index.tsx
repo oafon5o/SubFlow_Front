@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { EsqueciMinhaSenha, type EsqueciMinhaSenhaRequestDto, type RedefinirSenhaRequestDto } from '../../services/authService';
-
-
-
+import { EsqueciMinhaSenha, RedefinirSenha, type EsqueciMinhaSenhaRequestDto, type RedefinirSenhaRequestDto } from '../../services/authService';
 
 function EsqueciSenha(){
     const navigate = useNavigate();
@@ -45,6 +42,9 @@ function EsqueciSenha(){
         }
 
         try {
+
+            await RedefinirSenha(resetData);
+
             // await axios.post(`${API_URL}/usuarios/registrarnovasenha`, {
             //     email: emailData.email,
             //     token: resetData.codigo,
@@ -59,7 +59,7 @@ function EsqueciSenha(){
 
         } catch (error) {
             console.error("Erro ao redefinir senha:", error);
-            setMessage({ text: 'Erro ao redefinir senha. Verifique o código e tente novamente.', type: 'danger' });
+            setMessage({ text: 'Erro ao redefinir senha. Verifique se o código ou senha está correto e tente novamente.', type: 'danger' });
         }
     };
 

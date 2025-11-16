@@ -31,6 +31,11 @@ export async function EsqueciMinhaSenha(esqueciMinhaSenhaDto : EsqueciMinhaSenha
     return true;
 }
 
+export async function RedefinirSenha(RedefinirSenhaDto : RedefinirSenhaRequestDto) : Promise<boolean>{
+     await api.post("auth/recuperarSenha", RedefinirSenhaDto);
+    return true;
+}
+
 
 // const login = async (loginRequestDto : LoginRequestDto): Promise<LoginResponseDto> =>{
 //     const response = await api.post<LoginResponseDto>("auth/login", loginRequestDto);
