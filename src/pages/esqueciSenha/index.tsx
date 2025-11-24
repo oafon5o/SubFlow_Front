@@ -9,6 +9,7 @@ function EsqueciSenha(){
     
     const [emailData, setEmailData] = useState<EsqueciMinhaSenhaRequestDto>({ email: '' });
     const [resetData, setResetData] = useState<RedefinirSenhaRequestDto>({ 
+        email: '',
         codigo: '', 
         novaSenha: '', 
         confirmacaoSenha: '' 
@@ -43,13 +44,16 @@ function EsqueciSenha(){
 
         try {
 
-            await RedefinirSenha(resetData);
+            const payloadDeRegistro = {
+                email: emailData.email, // 👈 PEGA O EMAIL DA PRIMEIRA ETAPA
+                codigo: resetData.codigo,
+                novaSenha: resetData.novaSenha,
+                confirmacaoSenha: resetData.confirmacaoSenha // O service pode ignorar este, mas mandamos para simplificar
+            };
 
-            // await axios.post(`${API_URL}/usuarios/registrarnovasenha`, {
-            //     email: emailData.email,
-            //     token: resetData.codigo,
-            //     senha: resetData.novaSenha
-            // });
+            // 🎯 CHAMADA AO SERVICE
+            // O service agora vai receber o email junto com o resto
+            await RedefinirSenha(payloadDeRegistro);
 
             setMessage({ text: 'Senha redefinida com sucesso! Você será redirecionado.', type: 'success' });
             

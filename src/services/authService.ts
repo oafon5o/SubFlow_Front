@@ -16,10 +16,17 @@ export interface EsqueciMinhaSenhaRequestDto  {
 
 // DTO para a segunda etapa: redefinição de senha
 export interface RedefinirSenhaRequestDto {
+    email: string;
     codigo: string;
     novaSenha: string;
     confirmacaoSenha: string;
 };
+
+export interface RegistrarNovaSenhaBackendDto {
+    senha: string;
+    token: string;
+    email: string;
+}
 
 export async function LoginNovo(loginRequestDto : LoginRequestDto) : Promise<LoginResponseDto>{
     const response = await api.post<LoginResponseDto>("auth/login", loginRequestDto);
@@ -32,7 +39,14 @@ export async function EsqueciMinhaSenha(esqueciMinhaSenhaDto : EsqueciMinhaSenha
 }
 
 export async function RedefinirSenha(RedefinirSenhaDto : RedefinirSenhaRequestDto) : Promise<boolean>{
-     await api.post("auth/recuperarSenha", RedefinirSenhaDto);
+    
+    const payloadParaBackend: RegistrarNovaSenhaBackendDto = {
+        email: RedefinirSenhaDto.email,
+        token: RedefinirSenhaDto.codigo,
+        senha: RedefinirSenhaDto.novaSenha
+    };
+    
+    await api.post("auth/registrarnovasenha", payloadParaBackend);
     return true;
 }
 
