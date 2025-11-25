@@ -1,13 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import LayoutServicoStatus from "./componentes/layoutServicoStatus";
-import Home from "./pages/home/home";
-import RegistroServico from "./pages/registroServico";
-import StatusAssinatura from "./pages/statusAssinatura";
 import LayoutLoginCadastrese from "./componentes/layoutLoginCadastrese";
+
 import Login from "./pages/login";
 import Cadastrese from "./pages/cadastrese";
-import UsuarioListar from "./pages/listaUsuarios";
 import EsqueciSenha from "./pages/esqueciSenha";
+
+import Home from "./pages/home/home";
+import RegistroServico from "./pages/registroServico";
+
+import StatusAssinaturaListar from "./pages/statusAssinatura/statusAssinaturaListar";
+import StatusAssinaturaDetalhes from "./pages/statusAssinatura/statusAssinaturaDetalhes";
+
+import UsuarioListar from "./pages/listaUsuarios";
 
 function AppRoutes(){
     return(
@@ -17,10 +22,12 @@ function AppRoutes(){
                 <Route path="/cadastro" element={<Cadastrese />} />
                 <Route path="/esqueciSenha" element={<EsqueciSenha />} />
             </Route>
+
             <Route element={<LayoutServicoStatus />}>
                 <Route path="/home" element={<Home />} />
                 <Route path="/registroServico" element={<RegistroServico />} />
-                <Route path="/statusAssinatura" element={<StatusAssinatura />} />
+                <Route path="/statusAssinatura" element={<StatusAssinaturaListar />} />
+                <Route path="/statusAssinatura" element={<StatusAssinaturaDetalhes />} />
                 <Route path="/usuarios" element={<UsuarioListar />} />
             </Route>
         </Routes>
