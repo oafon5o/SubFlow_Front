@@ -4,9 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginSucesso } from "../../redux/authSlice";
 import { LoginNovo, type LoginRequestDto } from "../../services/authService";
 
-// criacao de objetos, se o projeto for pequeno cria uma pasta de types, e se for grande, cria pasta de types e dentro da pasta de types cria subpastas para cada tipo
-// estilo backend em questão de organização
-
 function Login() {
 
     const navigator = useNavigate();
@@ -39,7 +36,13 @@ function Login() {
             console.log(token);
             if (token != null) {
                 dispatch(loginSucesso({
-                    usuario:{email:formData.email, nome: ""}, token : token
+                    usuario: {
+                        email: formData.email,
+                        nome: "",
+                        id: loginResponseDto.id,
+                        role: loginResponseDto.role
+                    },
+                    token: token
                 }));
 
                 navigator("/home")

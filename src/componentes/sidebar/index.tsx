@@ -24,7 +24,7 @@ function Sidebar() {
                 </li>
                 <li className="nav-item">
                     <Link to="/statusAssinatura" className="nav-link text-white">
-                        Status de sua assinatura
+                        Painel de assinaturas
                     </Link>
                 </li>
                 <li className="nav-item">

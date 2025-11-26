@@ -6,7 +6,9 @@ export interface LoginRequestDto {
 }
 
 export interface LoginResponseDto {
-    token: string
+    token: string,
+    id: number,
+    role: string
 }
 
 // DTO para a primeira etapa: envio do email
@@ -22,36 +24,54 @@ export interface RedefinirSenhaRequestDto {
     confirmacaoSenha: string;
 };
 
+// DTO para registro de nova senha e validação do código enviado via e-mail
 export interface RegistrarNovaSenhaBackendDto {
     senha: string;
     token: string;
     email: string;
 }
 
+// DTO para registro de serviço
 export interface RegistrarServicoRequestDto {
     nomeServico: string;
-    dataInicio: string; // Formato YYYY-MM-DD
-    duracaoMeses: number; // Número de meses da assinatura
+    dataInicio: string;
+    duracaoMeses: number;
 }
 
+// DTO para registro de usuário novo no cadastre-se
+export interface CadastroRequestDto {
+    nome: string;
+    email: string;
+    senha: string;
+    role: string;
+}
+
+export interface UsuarioAtualizarRequestDto {
+    nome: string;
+    cpf: string;
+    email: string;
+    role?: string;
+}
+
+export interface UsuarioDetalhesResponseDto {
+    id: number;
+    nome: string;
+    cpf: string;
+    email: string;
+    role: string;
+}
+
+// DTO para ações que podem ser feitas na assinatura
 export interface AssinaturaAcaoDto {
     acao: 'CANCELAR' | 'RENOVAR';
 }
 
+// DTO para alteração de status da assinatura
 export interface AssinaturaListDto {
     id: number;
     nomeServico: string;
     status: 'ATIVA' | 'VENCIDA' | 'CANCELADA';
     dataVencimento: string;
-}
-
-export interface AssinaturaResponseDto {
-    id: number;
-    nomeServico: string;
-    dataInicio: string; 
-    duracaoMeses: number;
-    dataVencimento: string;
-    status: 'ATIVA' | 'VENCIDA' | 'CANCELADA';
 }
 
 export async function LoginNovo(loginRequestDto : LoginRequestDto) : Promise<LoginResponseDto>{
@@ -77,8 +97,11 @@ export async function RedefinirSenha(RedefinirSenhaDto : RedefinirSenhaRequestDt
 }
 
 export async function registrarNovaAssinatura(dadosServico: RegistrarServicoRequestDto): Promise<void> {
-    // Endpoint: POST /assinaturas
     await api.post("assinaturas", dadosServico);
+}
+
+export async function registrarNovoUsuario(dadosCadastro: CadastroRequestDto): Promise<void> {
+    await api.post("usuarios", dadosCadastro);
 }
 
 export async function buscarAssinaturasFiltradas(
@@ -86,23 +109,31 @@ export async function buscarAssinaturasFiltradas(
     page: number = 0, 
     filtro: string = ''
 ): Promise<AssinaturaListDto[]> {
-    // 🔒 ATENÇÃO: Assumindo que o controller está mapeado em "/api/assinaturas"
     const response = await api.get<AssinaturaListDto[]>(`assinaturas/grid?take=${take}&page=${page}&filtro=${filtro}`);
-    return response.data;
-}
-
-export async function buscarDetalhesAssinatura(id: string): Promise<AssinaturaResponseDto> {
-    // 🔒 ATENÇÃO: Seu backend tem o endpoint: GET /minhaAssinatura. Como ele não aceita ID na URL, 
-    // ele deve retornar a ÚLTIMA assinatura do usuário logado.
-    // Para simplificar a demonstração da lista (que usa IDs), vamos assumir que o backend tem um endpoint por ID:
-    const response = await api.get<AssinaturaResponseDto>(`assinaturas/${id}`);
     return response.data;
 }
 
 export async function realizarAcaoAssinatura(id: number, acao: 'CANCELAR' | 'RENOVAR'): Promise<void> {
     const payload: AssinaturaAcaoDto = { acao };
-    // O endpoint do backend é: PUT /{id}/acao
     await api.put(`assinaturas/${id}/acao`, payload); 
+}
+
+export async function buscarDetalhesUsuario(id: string | number): Promise<UsuarioDetalhesResponseDto> {
+    const response = await api.get<UsuarioDetalhesResponseDto>(`usuarios/${id}`);
+    return response.data;
+}
+
+export async function alterarDadosUsuario(id: number, dadosAtualizados: UsuarioAtualizarRequestDto): Promise<void> {
+    await api.put(`usuarios/${id}`, dadosAtualizados); 
+}
+
+export async function buscarTodosUsuarios(): Promise<UsuarioDetalhesResponseDto[]> {
+    const response = await api.get<UsuarioDetalhesResponseDto[]>("usuarios"); 
+    return response.data;
+}
+
+export async function removerUsuario(id: number): Promise<void> {
+    await api.delete(`usuarios/${id}`); 
 }
 
 

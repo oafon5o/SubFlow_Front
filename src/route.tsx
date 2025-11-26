@@ -10,9 +10,13 @@ import Home from "./pages/home/home";
 import RegistroServico from "./pages/registroServico";
 
 import StatusAssinaturaListar from "./pages/statusAssinatura/statusAssinaturaListar";
-import StatusAssinaturaDetalhes from "./pages/statusAssinatura/statusAssinaturaDetalhes";
+import RecentesAssinatura from "./pages/recentesAssinatura";
 
 import UsuarioListar from "./pages/listaUsuarios";
+
+import VisualizarPerfil from "./pages/visualizarPerfil";
+
+import UsuarioAlteracaoPage from "./pages/alteracaoUsuario/usuarioAlteracaoPage";
 
 function AppRoutes(){
     return(
@@ -27,8 +31,10 @@ function AppRoutes(){
                 <Route path="/home" element={<Home />} />
                 <Route path="/registroServico" element={<RegistroServico />} />
                 <Route path="/statusAssinatura" element={<StatusAssinaturaListar />} />
-                <Route path="/statusAssinatura" element={<StatusAssinaturaDetalhes />} />
+                <Route path="/recentesAssinatura" element={<RecentesAssinatura />} />
                 <Route path="/usuarios" element={<UsuarioListar />} />
+                <Route path="/alterarUsuario/:id" element={<UsuarioAlteracaoPage />} />
+                <Route path="/perfil/:id" element={<VisualizarPerfil />} />
             </Route>
         </Routes>
     );
